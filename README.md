@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CABAS HUB
 
-## Getting Started
+Marketplace B2B/B2C pour micro-importateurs algériens. Next.js, Supabase, déploiement Vercel.
 
-First, run the development server:
+- **Site** : [cabashub.dz](https://cabashub.dz) (après déploiement)
+- **Repo** : [github.com/Azizmohamedlarbi/cabas-hub](https://github.com/Azizmohamedlarbi/cabas-hub)
+
+---
+
+## Démarrage
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Variables d’environnement : créer `.env.local` avec `NEXT_PUBLIC_SUPABASE_URL` et `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Structure du dépôt
 
-To learn more about Next.js, take a look at the following resources:
+```
+├── src/                    # Application Next.js (App Router)
+│   ├── app/                # Pages et layouts
+│   ├── components/         # Composants réutilisables
+│   └── lib/                # DB, auth, messages, etc.
+├── content/                # Contenu markdown (CGU, mentions légales, confidentialité)
+├── public/                 # Assets statiques
+├── docs/                   # Documentation projet
+│   ├── CABAS_HUB_CAHIER_DES_CHARGES.md
+│   └── PROJECT_ANALYSIS.md
+├── supabase/               # Scripts SQL Supabase
+│   ├── schema/             # Schéma principal, monétisation, photos, pré-commandes
+│   └── messaging/          # Migrations messagerie
+├── DEPLOY.md               # Guide de déploiement (Vercel, GitHub, Supabase)
+└── push-to-github.ps1      # Script pour pousser vers GitHub (PowerShell)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Déploiement
 
-## Deploy on Vercel
+Voir **[DEPLOY.md](./DEPLOY.md)** pour :
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Déploiement direct (Vercel CLI) ou via GitHub + Vercel
+- Variables d’environnement et configuration Supabase
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Stack
+
+- **Next.js** (App Router), **React**, **TypeScript**
+- **Supabase** (auth, DB, realtime)
+- **Zustand** (état client), **Tailwind**, **Framer Motion**

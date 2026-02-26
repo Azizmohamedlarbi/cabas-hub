@@ -2,6 +2,111 @@
 
 ---
 
+## Déjà fait pour vous
+
+- **Git** et **GitHub CLI** (`gh`) installés.
+- **Dépôt Git** initialisé dans `temp-app`, tout le code est commité sur la branche `main` (`.env.local` n’est pas commité).
+
+---
+
+## À faire de votre côté (une fois)
+
+### Option A — Déployer tout de suite (sans GitHub)
+
+Dans un terminal, à la racine du projet :
+
+```powershell
+cd c:\Users\IT7\cabasHub\temp-app
+npx vercel login
+```
+
+Ouvrez le lien affiché, connectez-vous à Vercel, puis :
+
+```powershell
+npx vercel --prod
+```
+
+Répondez aux questions (nom du projet, etc.). À la fin, **ajoutez les variables d’environnement** dans le dashboard Vercel (projet → **Settings** → **Environment Variables**) :
+
+- `NEXT_PUBLIC_SUPABASE_URL` = votre URL Supabase  
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` = votre clé anon Supabase  
+
+Puis **redeployez** (onglet Deployments → ⋮ sur le dernier → Redeploy) pour que le build prenne en compte les variables.
+
+### Option B — GitHub + Vercel (auto-deploy à chaque push)
+
+**GitHub CLI est installé.** Suivez ces étapes dans l’ordre.
+
+#### Étape 1 — Connexion à GitHub (une seule fois)
+
+Dans un terminal :
+
+```powershell
+gh auth login
+```
+
+- Choisissez **GitHub.com** → **HTTPS** → **Login with a web browser**.
+- Copiez le code affiché, validez, puis dans le navigateur collez le code et autorisez.
+
+#### Étape 2 — Donner les droits « repo » et pousser le code
+
+Le dépôt **cabas-hub** est déjà créé sur votre compte : https://github.com/Azizmohamedlarbi/cabas-hub  
+
+Pour pouvoir pousser, il faut autoriser la permission **repo** (une fois) :
+
+1. Dans un terminal PowerShell, exécutez :
+   ```powershell
+   cd c:\Users\IT7\cabasHub\temp-app
+   gh auth refresh -h github.com -s repo
+   ```
+2. Une page GitHub va s’ouvrir avec un **code à saisir** (ex. `22E4-79F6`). Entrez ce code sur la page, puis validez en autorisant l’accès **repo**.
+3. Une fois l’autorisation faite, poussez le code :
+   ```powershell
+   git push -u origin main
+   ```
+
+**Ou** exécutez le script en une fois (il fait l’étape 1 puis le push) :
+
+```powershell
+cd c:\Users\IT7\cabasHub\temp-app
+.\push-to-github.ps1
+```
+
+Quand le navigateur s’ouvre, entrez le code affiché et autorisez. À la fin, le code sera sur GitHub.
+
+#### Étape 3 — Connecter Vercel au dépôt
+
+1. Allez sur [vercel.com](https://vercel.com) et connectez-vous (avec GitHub si possible).
+2. **Add New** → **Project**.
+3. Dans la liste, sélectionnez le dépôt **cabas-hub** (ou le nom que vous avez utilisé).
+4. **Root Directory** : laissez vide (le repo est déjà le projet Next.js).
+5. **Environment Variables** : ajoutez avant de lancer le déploiement :
+   - `NEXT_PUBLIC_SUPABASE_URL` = URL de votre projet Supabase  
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` = clé anon Supabase (Settings → API dans Supabase)
+6. Cliquez sur **Deploy**.
+
+#### Étape 4 — Configurer Supabase
+
+Dans **Supabase** → **Authentication** → **URL Configuration** :
+- **Site URL** : l’URL de votre site Vercel (ex. `https://cabas-hub.vercel.app`)
+- **Redirect URLs** : ajoutez la même URL
+
+Sauvegardez.
+
+---
+
+**Sans GitHub CLI** (création manuelle du dépôt) : créez un repo vide sur [github.com/new](https://github.com/new) (ex. `cabas-hub`), puis dans `temp-app` :
+
+```powershell
+cd c:\Users\IT7\cabasHub\temp-app
+git remote add origin https://github.com/VOTRE_UTILISATEUR/cabas-hub.git
+git push -u origin main
+```
+
+Ensuite, faites les **Étapes 3 et 4** ci-dessus.
+
+---
+
 ## Mises à jour (à chaque fois)
 
 Une fois le projet connecté à Vercel, **chaque push sur la branche connectée déclenche un déploiement automatique**. Pas de re-configuration, pas d’upload manuel.
