@@ -124,7 +124,7 @@ export default function Navbar() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     {/* Cart */}
                     <Link
-                        href={isLoggedIn ? "/checkout" : "/auth/login"}
+                        href={mounted && isLoggedIn ? "/checkout" : "/auth/login"}
                         className="hover-border-primary"
                         style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: 'var(--radius-md)', border: '1.5px solid var(--border)', textDecoration: 'none', color: 'var(--text-secondary)', transition: 'border-color 0.15s, background 0.15s' }}
                     >
@@ -135,7 +135,7 @@ export default function Navbar() {
                     </Link>
 
                     {/* Messages */}
-                    {isLoggedIn && (
+                    {mounted && isLoggedIn && (
                         <Link href="/messages" className="hover-border-secondary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: 'var(--radius-md)', border: '1.5px solid var(--border)', textDecoration: 'none', color: 'var(--text-secondary)', transition: 'all 0.15s', position: 'relative' }}>
                             <MessageCircle size={18} />
                             <span style={{ position: 'absolute', top: '-4px', right: '-4px', width: '10px', height: '10px', background: '#ef4444', borderRadius: '50%', border: '2px solid white' }} />
@@ -143,58 +143,66 @@ export default function Navbar() {
                     )}
 
                     {/* Auth */}
-                    {isLoggedIn && user ? (
-                        <div style={{ position: 'relative' }}>
-                            <button onClick={() => setProfileOpen(!profileOpen)} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 12px 6px 6px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-full)', background: 'white', cursor: 'pointer' }}>
-                                <img src={user.profilePhoto || `https://ui-avatars.com/api/?name=${user.firstName}&background=22c55e&color=fff`} alt="" style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }} />
-                                <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)' }}>{user.firstName}</span>
-                                <ChevronDown size={14} style={{ color: 'var(--text-muted)' }} />
-                            </button>
-                            {profileOpen && (
-                                <div onClick={() => setProfileOpen(false)} style={{ position: 'absolute', right: 0, top: 'calc(100% + 8px)', background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-xl)', padding: '8px', minWidth: '200px', zIndex: 200 }}>
-                                    <div style={{ padding: '12px', borderBottom: '1px solid var(--border)', marginBottom: '4px' }}>
-                                        <p style={{ fontWeight: 600, fontSize: '14px' }}>{user.firstName} {user.lastName}</p>
-                                        <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{user.email}</p>
-                                        {user.anaeVerified && <span className="badge badge-green" style={{ marginTop: '4px' }}><ShieldCheck size={10} /> ANAE Vérifié</span>}
+                    {mounted ? (
+                        isLoggedIn && user ? (
+                            <div style={{ position: 'relative' }}>
+                                <button onClick={() => setProfileOpen(!profileOpen)} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 12px 6px 6px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-full)', background: 'white', cursor: 'pointer' }}>
+                                    <img src={user.profilePhoto || `https://ui-avatars.com/api/?name=${user.firstName}&background=22c55e&color=fff`} alt="" style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }} />
+                                    <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)' }}>{user.firstName}</span>
+                                    <ChevronDown size={14} style={{ color: 'var(--text-muted)' }} />
+                                </button>
+                                {profileOpen && (
+                                    <div onClick={() => setProfileOpen(false)} style={{ position: 'absolute', right: 0, top: 'calc(100% + 8px)', background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-xl)', padding: '8px', minWidth: '200px', zIndex: 200 }}>
+                                        <div style={{ padding: '12px', borderBottom: '1px solid var(--border)', marginBottom: '4px' }}>
+                                            <p style={{ fontWeight: 600, fontSize: '14px' }}>{user.firstName} {user.lastName}</p>
+                                            <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{user.email}</p>
+                                            {user.anaeVerified && <span className="badge badge-green" style={{ marginTop: '4px' }}><ShieldCheck size={10} /> ANAE Vérifié</span>}
+                                        </div>
+                                        {user.userType === 'admin' ? (
+                                            <>
+                                                <NavItem href="/admin" icon="🛡️" label="Panel Admin" />
+                                                <NavItem href="/admin/products" icon="📦" label="Gestion Produits" />
+                                                <NavItem href="/admin/users" icon="👥" label="Utilisateurs" />
+                                                <NavItem href="/admin/orders" icon="🛍️" label="Commandes (Escrow)" />
+                                            </>
+                                        ) : user.userType === 'seller' ? (
+                                            <>
+                                                <NavItem href="/dashboard/seller" icon="📊" label="Mon Dashboard" />
+                                                <NavItem href="/dashboard/seller/products" icon="📦" label="Mes Produits" />
+                                                <NavItem href="/dashboard/seller/orders" icon="🛍️" label="Commandes" />
+                                                <NavItem href="/dashboard/seller/trips" icon="✈️" label="Mes Voyages" />
+                                            </>
+                                        ) : (
+                                            <>
+                                                <NavItem href="/dashboard/buyer" icon="📊" label="Mon Tableau de bord" />
+                                                <NavItem href="/dashboard/buyer/orders" icon="🛍️" label="Mes Commandes" />
+                                                <NavItem href="/dashboard/buyer/favorites" icon="❤️" label="Favoris" />
+                                            </>
+                                        )}
+                                        <NavItem href="/messages" icon="💬" label="Messages" />
+                                        <div style={{ borderTop: '1px solid var(--border)', marginTop: '4px', paddingTop: '4px' }}>
+                                            <button onClick={logout} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', width: '100%', borderRadius: 'var(--radius-md)', border: 'none', background: 'none', cursor: 'pointer', color: '#ef4444', fontSize: '14px', fontWeight: 500 }}>
+                                                🚪 Se déconnecter
+                                            </button>
+                                        </div>
                                     </div>
-                                    {user.userType === 'admin' ? (
-                                        <>
-                                            <NavItem href="/admin" icon="🛡️" label="Panel Admin" />
-                                            <NavItem href="/admin/products" icon="📦" label="Gestion Produits" />
-                                            <NavItem href="/admin/users" icon="👥" label="Utilisateurs" />
-                                            <NavItem href="/admin/orders" icon="🛍️" label="Commandes (Escrow)" />
-                                        </>
-                                    ) : user.userType === 'seller' ? (
-                                        <>
-                                            <NavItem href="/dashboard/seller" icon="📊" label="Mon Dashboard" />
-                                            <NavItem href="/dashboard/seller/products" icon="📦" label="Mes Produits" />
-                                            <NavItem href="/dashboard/seller/orders" icon="🛍️" label="Commandes" />
-                                            <NavItem href="/dashboard/seller/trips" icon="✈️" label="Mes Voyages" />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <NavItem href="/dashboard/buyer" icon="📊" label="Mon Tableau de bord" />
-                                            <NavItem href="/dashboard/buyer/orders" icon="🛍️" label="Mes Commandes" />
-                                            <NavItem href="/dashboard/buyer/favorites" icon="❤️" label="Favoris" />
-                                        </>
-                                    )}
-                                    <NavItem href="/messages" icon="💬" label="Messages" />
-                                    <div style={{ borderTop: '1px solid var(--border)', marginTop: '4px', paddingTop: '4px' }}>
-                                        <button onClick={logout} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', width: '100%', borderRadius: 'var(--radius-md)', border: 'none', background: 'none', cursor: 'pointer', color: '#ef4444', fontSize: '14px', fontWeight: 500 }}>
-                                            🚪 Se déconnecter
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                                )}
+                            </div>
+                        ) : (
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                                <Link href="/auth/login" className="hover-border-primary" style={{ padding: '8px 16px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-md)', textDecoration: 'none', fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)', transition: 'all 0.15s' }}>
+                                    Connexion
+                                </Link>
+                                <Link href="/auth/register/seller" className="hover-opacity" style={{ padding: '8px 16px', background: 'var(--primary)', borderRadius: 'var(--radius-md)', textDecoration: 'none', fontSize: '14px', fontWeight: 600, color: 'white', transition: 'opacity 0.15s' }}>
+                                    Vendre
+                                </Link>
+                            </div>
+                        )
                     ) : (
-                        <div style={{ display: 'flex', gap: '8px' }}>
-                            <Link href="/auth/login" className="hover-border-primary" style={{ padding: '8px 16px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-md)', textDecoration: 'none', fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)', transition: 'all 0.15s' }}>
-                                Connexion
-                            </Link>
-                            <Link href="/auth/register/seller" className="hover-opacity" style={{ padding: '8px 16px', background: 'var(--primary)', borderRadius: 'var(--radius-md)', textDecoration: 'none', fontSize: '14px', fontWeight: 600, color: 'white', transition: 'opacity 0.15s' }}>
-                                Vendre
-                            </Link>
+                        <div style={{ display: 'flex', gap: '8px', opacity: 0 }}>
+                            {/* Skeleton matches logged-out state structure temporarily */}
+                            <div style={{ width: '80px', height: '38px' }} />
+                            <div style={{ width: '70px', height: '38px' }} />
                         </div>
                     )}
                 </div>
