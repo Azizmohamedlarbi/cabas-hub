@@ -93,7 +93,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Categories dropdown */}
-                <div style={{ position: 'relative' }} onMouseEnter={() => setCategoryOpen(true)} onMouseLeave={() => setCategoryOpen(false)}>
+                <div className="hidden md:block" style={{ position: 'relative' }} onMouseEnter={() => setCategoryOpen(true)} onMouseLeave={() => setCategoryOpen(false)}>
                     <button style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 14px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-md)', background: 'white', cursor: 'pointer', fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)' }}>
                         <Package size={15} /> Catégories <ChevronDown size={14} />
                     </button>
@@ -109,11 +109,11 @@ export default function Navbar() {
                     )}
                 </div>
 
-                <Link href="/trips" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 500, color: 'var(--text-secondary)', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+                <Link href="/trips" className="hidden md:flex" style={{ alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 500, color: 'var(--text-secondary)', textDecoration: 'none', whiteSpace: 'nowrap' }}>
                     <MapPin size={15} /> Voyages
                 </Link>
 
-                <Link href="/pricing" className="hidden sm:flex" style={{ alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 600, color: '#d97706', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+                <Link href="/pricing" className="hidden lg:flex" style={{ alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 600, color: '#d97706', textDecoration: 'none', whiteSpace: 'nowrap' }}>
                     <span style={{ fontSize: '16px' }}>⭐</span> Abonnements
                 </Link>
 
@@ -146,10 +146,10 @@ export default function Navbar() {
                     {mounted ? (
                         isLoggedIn && user ? (
                             <div style={{ position: 'relative' }}>
-                                <button onClick={() => setProfileOpen(!profileOpen)} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 12px 6px 6px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-full)', background: 'white', cursor: 'pointer' }}>
-                                    <img src={user.profilePhoto || `https://ui-avatars.com/api/?name=${user.firstName}&background=22c55e&color=fff`} alt="" style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }} />
-                                    <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)' }}>{user.firstName}</span>
-                                    <ChevronDown size={14} style={{ color: 'var(--text-muted)' }} />
+                                <button className="hover-border-primary" onClick={() => setProfileOpen(!profileOpen)} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '4px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-full)', background: 'white', cursor: 'pointer', transition: 'all 0.15s' }}>
+                                    <img src={user.profilePhoto || `https://ui-avatars.com/api/?name=${user.firstName}&background=22c55e&color=fff`} alt="" style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
+                                    <span className="hidden sm:block" style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)' }}>{user.firstName}</span>
+                                    <ChevronDown className="hidden sm:block" size={14} style={{ color: 'var(--text-muted)', marginRight: '4px' }} />
                                 </button>
                                 {profileOpen && (
                                     <div onClick={() => setProfileOpen(false)} style={{ position: 'absolute', right: 0, top: 'calc(100% + 8px)', background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-xl)', padding: '8px', minWidth: '200px', zIndex: 200 }}>
@@ -216,6 +216,18 @@ export default function Navbar() {
             {/* Mobile Menu Content */}
             {menuOpen && (
                 <div className="sm:hidden" style={{ background: 'white', padding: '16px', borderBottom: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+                    {/* Categories Mobile List */}
+                    <div>
+                        <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>Catégories</p>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                            {CATEGORIES.slice(0, 6).map(cat => (
+                                <Link key={cat.id} href={`/products?category=${cat.slug}`} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-md)', textDecoration: 'none', color: 'var(--text-primary)', fontSize: '12px', fontWeight: 500, background: 'var(--bg-secondary)' }} onClick={() => setMenuOpen(false)}>
+                                    <span style={{ fontSize: '16px' }}>{cat.icon}</span> <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{cat.name}</span>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
 
                     {/* Search inside Mobile Menu */}
                     <div style={{ position: 'relative' }}>
