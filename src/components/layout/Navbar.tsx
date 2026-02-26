@@ -58,8 +58,8 @@ export default function Navbar() {
                     <img src="/Cabas_Hub_logo.png" alt="Cabas Hub" style={{ height: '80px', width: 'auto', objectFit: 'contain' }} />
                 </Link>
 
-                {/* Search */}
-                <div style={{ flex: 1, maxWidth: '480px', position: 'relative' }}>
+                {/* Search - Hide on mobile, show on Desktop */}
+                <div className="hidden sm:block" style={{ flex: 1, maxWidth: '480px', position: 'relative' }}>
                     <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                     <input
                         type="text"
@@ -113,7 +113,7 @@ export default function Navbar() {
                     <MapPin size={15} /> Voyages
                 </Link>
 
-                <Link href="/pricing" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 600, color: '#d97706', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+                <Link href="/pricing" className="hidden sm:flex" style={{ alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 600, color: '#d97706', textDecoration: 'none', whiteSpace: 'nowrap' }}>
                     <span style={{ fontSize: '16px' }}>⭐</span> Abonnements
                 </Link>
 
@@ -208,10 +208,46 @@ export default function Navbar() {
                 </div>
 
                 {/* Mobile menu toggle */}
-                <button onClick={() => setMenuOpen(!menuOpen)} style={{ display: 'none', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-md)', background: 'white', cursor: 'pointer' }}>
+                <button className="sm:hidden" onClick={() => setMenuOpen(!menuOpen)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-md)', background: 'white', cursor: 'pointer' }}>
                     {menuOpen ? <X size={20} /> : <Menu size={20} />}
                 </button>
             </div>
+
+            {/* Mobile Menu Content */}
+            {menuOpen && (
+                <div className="sm:hidden" style={{ background: 'white', padding: '16px', borderBottom: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+                    {/* Search inside Mobile Menu */}
+                    <div style={{ position: 'relative' }}>
+                        <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                        <input
+                            type="text"
+                            placeholder="Rechercher..."
+                            value={searchQuery}
+                            onChange={e => setSearchQuery(e.target.value)}
+                            onBlur={() => setTimeout(() => setSuggestions([]), 200)}
+                            style={{ width: '100%', padding: '9px 12px 9px 36px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-full)', fontSize: '14px', outline: 'none', background: 'var(--bg-secondary)' }}
+                            onKeyDown={e => { if (e.key === 'Enter' && searchQuery) window.location.href = `/search?q=${searchQuery}`; }}
+                        />
+                        {suggestions.length > 0 && (
+                            <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: '8px', background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-xl)', overflow: 'hidden', zIndex: 1000 }}>
+                                {suggestions.map((s, i) => (
+                                    <Link key={i} href={s.type === 'product' ? `/products/${s.slug}` : s.type === 'seller' ? `/sellers/${s.id}` : `/products?category=${s.slug}`} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 15px', textDecoration: 'none', color: 'var(--text-primary)', borderBottom: '1px solid var(--border)', fontSize: '13px' }} onClick={() => setMenuOpen(false)}>
+                                        {s.label}
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    <Link href="/trips" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '15px', fontWeight: 500, color: 'var(--text-primary)', textDecoration: 'none', padding: '8px 0', borderBottom: '1px solid var(--border)' }} onClick={() => setMenuOpen(false)}>
+                        <MapPin size={18} /> Voyages
+                    </Link>
+                    <Link href="/pricing" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '15px', fontWeight: 600, color: '#d97706', textDecoration: 'none', padding: '8px 0' }} onClick={() => setMenuOpen(false)}>
+                        <span style={{ fontSize: '18px' }}>⭐</span> Abonnements Max
+                    </Link>
+                </div>
+            )}
         </header>
     );
 }

@@ -67,7 +67,7 @@ export default function HomePage() {
   return (
     <div>
       {/* ──────── HERO ──────── */}
-      <section style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f2027 100%)', padding: '80px 20px', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f2027 100%)', padding: '40px 16px 60px 16px', position: 'relative', overflow: 'hidden' }}>
         {/* Decorative circles */}
         <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(34,197,94,0.15) 0%, transparent 60%)', borderRadius: '50%' }} />
         <div style={{ position: 'absolute', bottom: '-80px', left: '-80px', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 60%)', borderRadius: '50%' }} />
@@ -79,10 +79,10 @@ export default function HomePage() {
             <span style={{ color: '#4ade80', fontSize: '13px', fontWeight: 600 }}>Partenaire ANAE – Carte 080100 – Micro-Importateur Certifié</span>
           </div>
 
-          <h1 style={{ fontSize: 'clamp(28px, 5vw, 52px)', fontWeight: 900, color: 'white', lineHeight: '1.15', marginBottom: '20px' }}>
+          <h1 style={{ fontSize: 'clamp(24px, 6vw, 52px)', fontWeight: 900, color: 'white', lineHeight: '1.15', marginBottom: '16px' }}>
             La Marketplace des<br />
             <span style={{ background: 'linear-gradient(90deg, #22c55e, #3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              Micro-Importateurs Algériens
+              Micro-Importateurs
             </span>
           </h1>
 
@@ -92,8 +92,8 @@ export default function HomePage() {
 
           {/* Search bar */}
           <div style={{ position: 'relative', maxWidth: '560px', margin: '0 auto 24px' }}>
-            <div style={{ display: 'flex', gap: '0', background: 'white', borderRadius: 'var(--radius-full)', padding: '6px', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
-              <div style={{ flex: 1, display: 'flex', alignItems: 'center', paddingLeft: '16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', background: 'white', borderRadius: '16px', padding: '8px', boxShadow: '0 20px 60px rgba(0,0,0,0.3)', width: '100%' }} className="sm:flex-row sm:rounded-full">
+              <div style={{ flex: 1, display: 'flex', alignItems: 'center', paddingLeft: '12px' }}>
                 <Search size={18} style={{ color: '#94a3b8', flexShrink: 0 }} />
                 <input
                   type="text"
@@ -105,7 +105,8 @@ export default function HomePage() {
                   style={{ flex: 1, border: 'none', outline: 'none', fontSize: '15px', padding: '8px 12px', color: 'var(--text-primary)', background: 'transparent' }}
                 />
               </div>
-              <button onClick={handleSearch} style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)', color: 'white', border: 'none', borderRadius: 'var(--radius-full)', padding: '10px 24px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'opacity 0.15s' }}
+              <button onClick={handleSearch} style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)', color: 'white', border: 'none', borderRadius: '12px', padding: '12px 24px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'opacity 0.15s', width: '100%' }}
+                className="sm:w-auto sm:rounded-full"
                 onMouseEnter={e => (e.currentTarget.style.opacity = '0.9')}
                 onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
                 Rechercher
@@ -144,9 +145,9 @@ export default function HomePage() {
       </section>
 
       {/* ──────── EARLY ADOPTER VIP BANNER ──────── */}
-      <section style={{ background: '#f8fafc', padding: '32px 20px', borderBottom: '1px solid var(--border)' }}>
+      <section style={{ background: '#f8fafc', padding: '16px 12px', borderBottom: '1px solid var(--border)' }}>
         <div className="container" style={{ maxWidth: '900px' }}>
-          <div style={{ background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', borderRadius: 'var(--radius-xl)', padding: '32px', position: 'relative', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
+          <div style={{ background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', borderRadius: '16px', padding: '24px 20px', position: 'relative', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
             {/* Glow effects */}
             <div style={{ position: 'absolute', top: 0, left: '20%', width: '200px', height: '2px', background: 'linear-gradient(90deg, transparent, #22c55e, transparent)', opacity: 0.8 }} />
             <div style={{ position: 'absolute', bottom: '-80px', right: '-50px', width: '250px', height: '250px', background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)', borderRadius: '50%' }} />
@@ -196,9 +197,9 @@ export default function HomePage() {
       </section>
 
       {/* ──────── STATS ──────── */}
-      <section style={{ background: 'white', borderBottom: '1px solid var(--border)', padding: '28px 20px' }}>
+      <section style={{ background: 'white', borderBottom: '1px solid var(--border)', padding: '20px 16px' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px' }}>
             {[
               { value: '420+', label: 'Auto-entrepreneurs vérifiés', icon: <Users size={20} style={{ color: 'var(--primary)' }} /> },
               { value: '450K DA+', label: 'Volume transactions hebdomadaire', icon: <TrendingUp size={20} style={{ color: 'var(--secondary)' }} /> },
@@ -328,18 +329,18 @@ export default function HomePage() {
       </section>
 
       {/* ──────── CTA VENDEUR ──────── */}
-      <section style={{ background: 'linear-gradient(135deg, #0f172a, #1e293b)', padding: '80px 20px' }}>
+      <section style={{ background: 'linear-gradient(135deg, #0f172a, #1e293b)', padding: '60px 16px' }}>
         <div className="container" style={{ textAlign: 'center', maxWidth: '640px' }}>
-          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🚀</div>
-          <h2 style={{ fontSize: '32px', fontWeight: 800, color: 'white', marginBottom: '16px' }}>Vous êtes Micro-Importateur?</h2>
-          <p style={{ color: '#94a3b8', fontSize: '16px', lineHeight: '1.7', marginBottom: '32px' }}>
+          <div style={{ fontSize: '40px', marginBottom: '16px' }}>🚀</div>
+          <h2 style={{ fontSize: '28px', fontWeight: 800, color: 'white', marginBottom: '16px' }}>Vous êtes Micro-Importateur?</h2>
+          <p style={{ color: '#94a3b8', fontSize: '15px', lineHeight: '1.6', marginBottom: '24px' }}>
             Rejoignez CABAS HUB et connectez-vous avec des milliers d&apos;acheteurs B2B et B2C à travers toute l&apos;Algérie. Inscription gratuite, paiement sécurisé, dashboard professionnel.
           </p>
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/auth/register" className="hover-opacity" style={{ padding: '14px 32px', background: 'linear-gradient(135deg, #22c55e, #16a34a)', color: 'white', borderRadius: 'var(--radius-md)', textDecoration: 'none', fontWeight: 700, fontSize: '15px', display: 'flex', alignItems: 'center', gap: '8px', transition: 'opacity 0.15s' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', justifyContent: 'center' }} className="sm:flex-row">
+            <Link href="/auth/register" className="hover-opacity" style={{ padding: '14px 24px', background: 'linear-gradient(135deg, #22c55e, #16a34a)', color: 'white', borderRadius: 'var(--radius-md)', textDecoration: 'none', fontWeight: 700, fontSize: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'opacity 0.15s', width: '100%' }}>
               Commencer gratuitement <ArrowRight size={16} />
             </Link>
-            <Link href="/products" className="hover-opacity" style={{ padding: '14px 32px', background: 'rgba(255,255,255,0.08)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 'var(--radius-md)', textDecoration: 'none', fontWeight: 600, fontSize: '15px', transition: 'opacity 0.15s' }}>
+            <Link href="/products" className="hover-opacity" style={{ padding: '14px 24px', background: 'rgba(255,255,255,0.08)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 'var(--radius-md)', textDecoration: 'none', fontWeight: 600, fontSize: '15px', display: 'flex', justifyContent: 'center', transition: 'opacity 0.15s', width: '100%' }}>
               Explorer les produits
             </Link>
           </div>
