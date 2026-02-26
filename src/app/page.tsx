@@ -152,8 +152,8 @@ export default function HomePage() {
             <div style={{ position: 'absolute', top: 0, left: '20%', width: '200px', height: '2px', background: 'linear-gradient(90deg, transparent, #22c55e, transparent)', opacity: 0.8 }} />
             <div style={{ position: 'absolute', bottom: '-80px', right: '-50px', width: '250px', height: '250px', background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)', borderRadius: '50%' }} />
 
-            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', gap: '32px', alignItems: 'center' }}>
-              <div style={{ flex: '1 1 300px' }}>
+            <div style={{ position: 'relative', zIndex: 1 }} className="flex flex-col md:flex-row gap-8 md:items-center">
+              <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: 700 }}>
                     <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ef4444', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }}></span> LIVE
@@ -168,7 +168,7 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}>
                 {/* Sellers Bar */}
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '13px' }}>

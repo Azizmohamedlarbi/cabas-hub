@@ -224,9 +224,17 @@ body {
 
 /* Common components */
 .container {
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 16px;
+  /* slightly smaller padding for mobile */
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 20px;
+  }
 }
 
 .section {
