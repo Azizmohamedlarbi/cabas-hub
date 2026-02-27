@@ -12,6 +12,7 @@ const NAV = [
     { href: '/admin/trips', icon: <Plane size={17} />, label: 'Voyages' },
     { href: '/admin/photos', icon: <ImageIcon size={17} />, label: 'Photos' },
     { href: '/admin/subscriptions', icon: <Star size={17} />, label: 'Abonnements' },
+    { href: '/admin/reports', icon: <Shield size={17} />, label: 'Signalements' },
 ];
 
 export default function AdminSidebar() {

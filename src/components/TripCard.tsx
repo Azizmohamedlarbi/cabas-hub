@@ -1,15 +1,18 @@
 'use client';
 import Link from 'next/link';
-import { ShieldCheck, Star, Loader2 } from 'lucide-react';
+import { ShieldCheck, Star, Loader2, Flag } from 'lucide-react';
 import type { Trip } from '@/types';
 import { formatDZD, formatDate } from '@/lib/utils';
 import { useState } from 'react';
 import { useAuthStore } from '@/store/auth';
 import { db } from '@/lib/db';
 import { useRouter } from 'next/navigation';
+import ReportModal from '@/components/modals/ReportModal';
 
 export default function TripCard({ trip }: { trip: Trip }) {
     const [preOrderOpen, setPreOrderOpen] = useState(false);
+    const [reportModalOpen, setReportModalOpen] = useState(false);
+    const { user } = useAuthStore();
 
     const departureDate = trip.departure_date;
     const returnDate = trip.return_date || '';
@@ -67,6 +70,19 @@ export default function TripCard({ trip }: { trip: Trip }) {
                         </div>
                     </Link>
 
+                    {/* Report Trip Button */}
+                    <button
+                        disabled={user?.id === trip.seller_id}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            if (!user) { window.location.href = '/auth/login'; return; }
+                            setReportModalOpen(true);
+                        }}
+                        style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, padding: 0, marginBottom: '16px' }}
+                    >
+                        <Flag size={12} /> Signaler le voyage
+                    </button>
+
                     {/* Notes */}
                     {trip.notes && <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '12px', lineHeight: '1.5' }}>{trip.notes}</p>}
 
@@ -110,6 +126,19 @@ export default function TripCard({ trip }: { trip: Trip }) {
 
             {/* PreOrder Modal */}
             {preOrderOpen && <PreOrderModal trip={trip} onClose={() => setPreOrderOpen(false)} />}
+
+            {/* Report Modal */}
+            {reportModalOpen && (
+                <div onClick={(e) => e.stopPropagation()}>
+                    <ReportModal
+                        targetType="trip"
+                        targetId={trip.id}
+                        reportedId={trip.seller_id}
+                        targetName={`Voyage vers ${trip.destination_city} (${formatDate(trip.departure_date)})`}
+                        onClose={() => setReportModalOpen(false)}
+                    />
+                </div>
+            )}
         </>
     );
 }

@@ -2,13 +2,14 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { ShieldCheck, Star, Package, Plane, MessageCircle, Loader2 } from 'lucide-react';
+import { ShieldCheck, Star, Package, Plane, MessageCircle, Loader2, Flag } from 'lucide-react';
 import { formatDZD } from '@/lib/utils';
 import ProductCard from '@/components/ProductCard';
 import TripCard from '@/components/TripCard';
 import { db } from '@/lib/db';
 import { useAuthStore } from '@/store/auth';
 import { Profile, Product, Trip } from '@/types';
+import ReportModal from '@/components/modals/ReportModal';
 
 export default function SellerProfilePage() {
     const params = useParams();
@@ -19,6 +20,7 @@ export default function SellerProfilePage() {
     const [trips, setTrips] = useState<Trip[]>([]);
     const [loading, setLoading] = useState(true);
     const [tab, setTab] = useState<'products' | 'trips'>('products');
+    const [reportModalOpen, setReportModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchSellerData = async () => {
@@ -85,6 +87,17 @@ export default function SellerProfilePage() {
                     >
                         <MessageCircle size={15} /> Contacter
                     </button>
+                    {user?.id !== seller.id && (
+                        <button
+                            onClick={() => {
+                                if (!user) { router.push('/auth/login'); return; }
+                                setReportModalOpen(true);
+                            }}
+                            style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '9px 18px', border: '1.5px solid #ef4444', background: 'white', color: '#ef4444', borderRadius: 'var(--radius-md)', cursor: 'pointer', fontWeight: 600, fontSize: '14px', transition: 'all 0.15s' }}
+                        >
+                            <Flag size={15} /> Signaler
+                        </button>
+                    )}
                 </div>
             </div>
 
@@ -134,6 +147,16 @@ export default function SellerProfilePage() {
                     )}
                 </div>
             </div>
+
+            {reportModalOpen && (
+                <ReportModal
+                    targetType="profile"
+                    targetId={seller.id}
+                    reportedId={seller.id}
+                    targetName={`${seller.first_name} ${seller.last_name}`}
+                    onClose={() => setReportModalOpen(false)}
+                />
+            )}
         </div>
     );
 }

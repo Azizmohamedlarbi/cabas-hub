@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { ShieldCheck, Star, Heart, MessageCircle, Truck, Package, ChevronLeft, ChevronRight, MapPin, Loader2 } from 'lucide-react';
+import { ShieldCheck, Star, Heart, MessageCircle, Truck, Package, ChevronLeft, ChevronRight, MapPin, Loader2, Flag } from 'lucide-react';
 import { REVIEWS } from '@/lib/mock-data';
 import { formatDZD, formatDate } from '@/lib/utils';
 import { useCartStore } from '@/store/cart';
@@ -10,6 +10,7 @@ import { useAuthStore } from '@/store/auth';
 import { Stars } from '@/components/ProductCard';
 import { db } from '@/lib/db';
 import { Product } from '@/types';
+import ReportModal from '@/components/modals/ReportModal';
 
 export default function ProductDetailPage() {
     const params = useParams();
@@ -22,6 +23,7 @@ export default function ProductDetailPage() {
     const [priceType, setPriceType] = useState<'wholesale' | 'retail'>('retail');
     const [qty, setQty] = useState(1);
     const [favorited, setFavorited] = useState(false);
+    const [reportModalOpen, setReportModalOpen] = useState(false);
     const addItem = useCartStore(s => s.addItem);
 
     useEffect(() => {
@@ -223,6 +225,19 @@ export default function ProductDetailPage() {
                             <MessageCircle size={16} /> Contacter le vendeur
                         </button>
 
+                        {/* Report Product */}
+                        <button
+                            disabled={user?.id === product.seller_id}
+                            onClick={() => {
+                                if (!user) { router.push('/auth/login'); return; }
+                                setReportModalOpen(true);
+                            }}
+                            className="hover-bg-secondary"
+                            style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '11px', border: '1px solid #ef4444', borderRadius: 'var(--radius-md)', background: 'white', color: '#ef4444', fontWeight: 600, fontSize: '14px', marginBottom: '20px', transition: 'all 0.15s', cursor: 'pointer' }}
+                        >
+                            <Flag size={14} /> Signaler ce produit
+                        </button>
+
                         {/* Shipping info */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', background: 'var(--bg-secondary)', borderRadius: 'var(--radius-md)', padding: '14px', marginBottom: '20px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
@@ -298,6 +313,16 @@ export default function ProductDetailPage() {
                     )}
                 </div>
             </div>
+
+            {reportModalOpen && (
+                <ReportModal
+                    targetType="product"
+                    targetId={product.id}
+                    reportedId={product.seller_id}
+                    targetName={product.title}
+                    onClose={() => setReportModalOpen(false)}
+                />
+            )}
         </div>
     );
 }
