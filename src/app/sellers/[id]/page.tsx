@@ -88,7 +88,7 @@ export default function SellerProfilePage() {
                 </div>
             </div>
 
-            <div className="container" style={{ padding: '24px 20px', display: 'grid', gridTemplateColumns: '280px 1fr', gap: '24px', alignItems: 'flex-start' }}>
+            <div className="container grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 items-start" style={{ padding: '24px 20px' }}>
                 {/* Sidebar */}
                 <aside>
                     <div style={{ background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '20px', marginBottom: '16px' }}>

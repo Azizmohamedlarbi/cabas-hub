@@ -188,10 +188,10 @@ export default function PricingPage() {
             </div>
 
             {/* Pricing Cards */}
-            <div className="container" style={{ marginTop: '-40px', padding: '0 20px' }}>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', justifyContent: 'center' }}>
+            <div className="container" style={{ marginTop: '-40px', padding: '0 16px' }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {(selectedPlan === 'seller' ? sellerPlans : buyerPlans).map((plan, i) => (
-                        <div key={i} style={{ flex: '1 1 300px', maxWidth: '380px', background: 'white', borderRadius: 'var(--radius-xl)', padding: '32px', boxShadow: plan.highlight ? '0 20px 40px rgba(34,197,94,0.15)' : '0 10px 30px rgba(0,0,0,0.05)', border: plan.highlight ? '2px solid #22c55e' : '1px solid var(--border)', position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                        <div key={i} className="flex flex-col relative" style={{ background: 'white', borderRadius: 'var(--radius-xl)', padding: '32px', boxShadow: plan.highlight ? '0 20px 40px rgba(34,197,94,0.15)' : '0 10px 30px rgba(0,0,0,0.05)', border: plan.highlight ? '2px solid #22c55e' : '1px solid var(--border)' }}>
                             {plan.highlight && (
                                 <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)', background: '#22c55e', color: 'white', padding: '6px 16px', borderRadius: 'var(--radius-full)', fontSize: '13px', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
                                     Plus Populaire
@@ -240,11 +240,11 @@ export default function PricingPage() {
             </div>
 
             {/* Offline Payment Information Section */}
-            <div className="container" style={{ marginTop: '80px', maxWidth: '800px' }}>
+            <div className="container" style={{ marginTop: '80px', maxWidth: '800px', padding: '0 16px' }}>
                 <h2 style={{ fontSize: '24px', fontWeight: 800, textAlign: 'center', marginBottom: '32px' }}>Comment payer son abonnement ?</h2>
 
-                <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border)', overflow: 'hidden', display: 'flex', flexWrap: 'wrap' }}>
-                    <div style={{ flex: '1 1 300px', padding: '32px', background: '#f8fafc', borderRight: '1px solid var(--border)' }}>
+                <div className="flex flex-col md:flex-row overflow-hidden" style={{ background: 'white', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border)' }}>
+                    <div className="flex-1 p-6 md:p-8 border-b md:border-b-0 md:border-r border-slate-200" style={{ background: '#f8fafc' }}>
                         <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <CreditCard size={20} style={{ color: '#2563eb' }} /> Paiement Manuel
                         </h3>
@@ -266,7 +266,7 @@ export default function PricingPage() {
                         </div>
                     </div>
 
-                    <div style={{ flex: '1 1 300px', padding: '32px' }}>
+                    <div className="flex-1 p-6 md:p-8">
                         <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '20px' }}>Étapes d'activation :</h3>
                         <ol style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             <li style={{ fontSize: '14px', color: '#334155', lineHeight: '1.6' }}>

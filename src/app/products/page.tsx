@@ -106,10 +106,10 @@ function ProductsPageInner() {
                 </div>
             </div>
 
-            <div className="container" style={{ padding: '24px 20px', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+            <div className="container flex flex-col md:flex-row items-start gap-6" style={{ padding: '24px 16px' }}>
                 {/* Sidebar filters */}
                 {showFilters && (
-                    <aside style={{ width: '240px', flexShrink: 0, background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '20px', position: 'sticky', top: '90px' }}>
+                    <aside className="w-full md:w-[240px]" style={{ flexShrink: 0, background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '20px', position: 'sticky', top: '90px', zIndex: 10 }}>
                         <h3 style={{ fontWeight: 700, fontSize: '15px', marginBottom: '20px' }}>🔍 Filtres</h3>
 
                         {/* Category */}

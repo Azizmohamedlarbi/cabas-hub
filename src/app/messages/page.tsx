@@ -224,10 +224,10 @@ function MessagesContent() {
     );
 
     return (
-        <div style={{ height: 'calc(100vh - 140px)', display: 'flex', background: 'white', margin: '20px', borderRadius: '24px', overflow: 'hidden', border: '1px solid #e2e8f0', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
+        <div className="flex h-[calc(100vh-80px)] md:h-[calc(100vh-140px)] bg-white m-0 md:m-5 md:rounded-3xl overflow-hidden border border-slate-200 shadow-sm">
 
             {/* Sidebar */}
-            <div style={{ width: '380px', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
+            <div className={`${activeConv ? 'hidden md:flex' : 'flex'} w-full md:w-[380px] border-r-0 md:border-r border-slate-200 flex-col`}>
                 <div style={{ padding: '24px' }}>
                     <h2 style={{ fontSize: '24px', fontWeight: 900, marginBottom: '20px' }}>Messages</h2>
                     <div style={{ position: 'relative' }}>
@@ -255,10 +255,13 @@ function MessagesContent() {
             </div>
 
             {/* Chat Area */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#f8fafc' }}>
+            <div className={`${!activeConv ? 'hidden md:flex' : 'flex'} flex-1 flex-col bg-slate-50`}>
                 {activeConv ? (
                     <>
-                        <div style={{ padding: '18px 32px', background: 'white', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <div style={{ padding: '18px 20px', background: 'white', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '16px' }}>
+                            <button className="md:hidden flex items-center justify-center w-10 h-10 bg-slate-100 rounded-full mr-2" onClick={() => setActiveConv(null)}>
+                                ⬅
+                            </button>
                             <img src={activeConv.participant?.profile_photo || '/placeholder-user.png'} style={{ width: '42px', height: '42px', borderRadius: '14px', objectFit: 'cover' }} />
                             <div>
                                 <h3 style={{ fontWeight: 800, fontSize: '16.5px' }}>{activeConv.participant?.first_name} {activeConv.participant?.last_name}</h3>
@@ -286,11 +289,11 @@ function MessagesContent() {
                             <div ref={messagesEndRef} />
                         </div>
 
-                        <div style={{ padding: '24px 32px', background: 'white', borderTop: '1px solid #e2e8f0' }}>
-                            <div style={{ display: 'flex', gap: '12px' }}>
-                                <button onClick={() => { const u = prompt('Lien image:'); if (u) handleSend(u); }} style={{ width: '48px', height: '48px', borderRadius: '15px', border: 'none', background: '#f1f5f9', cursor: 'pointer' }}><ImageIcon size={20} color="#64748b" /></button>
-                                <input type="text" value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSend()} placeholder="Écrire..." style={{ flex: 1, height: '48px', padding: '0 20px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '15px', fontSize: '15px' }} />
-                                <button onClick={() => handleSend()} disabled={!input.trim()} style={{ width: '48px', height: '48px', background: input.trim() ? '#2563eb' : '#cbd5e1', color: 'white', border: 'none', borderRadius: '15px', cursor: 'pointer' }}><Send size={20} /></button>
+                        <div style={{ padding: '16px 20px', background: 'white', borderTop: '1px solid #e2e8f0' }}>
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                                <button onClick={() => { const u = prompt('Lien image:'); if (u) handleSend(u); }} style={{ width: '45px', height: '45px', borderRadius: '15px', border: 'none', background: '#f1f5f9', cursor: 'pointer', flexShrink: 0 }}><ImageIcon size={20} color="#64748b" /></button>
+                                <input type="text" value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSend()} placeholder="Écrire..." style={{ flex: 1, height: '45px', padding: '0 16px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '15px', fontSize: '15px', minWidth: 0 }} />
+                                <button onClick={() => handleSend()} disabled={!input.trim()} style={{ width: '45px', height: '45px', background: input.trim() ? '#2563eb' : '#cbd5e1', color: 'white', border: 'none', borderRadius: '15px', cursor: 'pointer', flexShrink: 0 }}><Send size={20} /></button>
                             </div>
                         </div>
                     </>

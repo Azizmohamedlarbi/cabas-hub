@@ -40,27 +40,43 @@ export default function DashboardSidebar({ type = 'seller' }: { type?: 'seller' 
     };
 
     return (
-        <aside style={{ width: '260px', background: 'white', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'sticky', top: 0, height: '100vh' }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)' }}>
-                <Link href="/" style={{ textDecoration: 'none', display: 'inline-block' }}>
-                    <img src="/Cabas_Hub_logo.png" alt="Cabas Hub" style={{ height: '52px', width: 'auto', objectFit: 'contain', display: 'block' }} />
-                </Link>
-            </div>
-            <nav style={{ flex: 1, padding: '20px 12px' }}>
-                {menuItems.map(item => {
+        <>
+            {/* Desktop Sidebar */}
+            <aside className="hidden md:flex flex-col w-[260px] bg-white border-r border-slate-200 min-h-screen sticky top-0 h-screen">
+                <div className="p-4 px-5 border-b border-slate-200">
+                    <Link href="/" className="inline-block">
+                        <img src="/Cabas_Hub_logo.png" alt="Cabas Hub" className="h-[52px] w-auto object-contain block" />
+                    </Link>
+                </div>
+                <nav className="flex-1 p-5 px-3 overflow-y-auto">
+                    {menuItems.map(item => {
+                        const active = isActive(item.href);
+                        return (
+                            <Link key={item.label} href={item.href} className={`flex items-center gap-3 p-3 px-4 rounded-md mb-1 text-sm transition-all ${active ? 'bg-green-50 text-green-600 font-semibold' : 'text-slate-500 font-medium hover:bg-slate-50'}`}>
+                                {item.icon} {item.label}
+                            </Link>
+                        );
+                    })}
+                </nav>
+                <div className="p-5 border-t border-slate-200">
+                    <button onClick={() => logout()} className="flex items-center gap-3 w-full p-3 px-4 border-none bg-transparent text-red-500 cursor-pointer text-sm font-semibold hover:bg-red-50 rounded-md transition-colors">
+                        <LogOut size={18} /> Déconnexion
+                    </button>
+                </div>
+            </aside>
+
+            {/* Mobile Bottom Navigation */}
+            <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50 flex items-center justify-around px-2 pb-[calc(env(safe-area-inset-bottom)+8px)] pt-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] overflow-x-auto">
+                {menuItems.slice(0, 5).map(item => {
                     const active = isActive(item.href);
                     return (
-                        <Link key={item.label} href={item.href} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', textDecoration: 'none', color: active ? 'var(--primary)' : 'var(--text-secondary)', background: active ? 'var(--primary-bg)' : 'transparent', borderRadius: 'var(--radius-md)', marginBottom: '4px', fontWeight: active ? 600 : 500, fontSize: '14px', transition: 'all 0.2s' }}>
-                            {item.icon} {item.label}
+                        <Link key={item.label} href={item.href} className={`flex flex-col items-center justify-center p-2 rounded-lg min-w-[64px] ${active ? 'text-green-600' : 'text-slate-500'}`}>
+                            {item.icon}
+                            <span className="text-[10px] mt-1 font-medium truncate w-full text-center">{item.label}</span>
                         </Link>
-                    );
+                    )
                 })}
             </nav>
-            <div style={{ padding: '20px', borderTop: '1px solid var(--border)' }}>
-                <button onClick={() => logout()} style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%', padding: '12px 16px', border: 'none', background: 'transparent', color: '#ef4444', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>
-                    <LogOut size={18} /> Déconnexion
-                </button>
-            </div>
-        </aside>
+        </>
     );
 }

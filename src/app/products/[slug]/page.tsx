@@ -109,7 +109,7 @@ export default function ProductDetailPage() {
             </div>
 
             <div className="container" style={{ padding: '24px 20px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', alignItems: 'flex-start' }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                     {/* Left: Images */}
                     <div>
                         {/* Main image */}
