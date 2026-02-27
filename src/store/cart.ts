@@ -1,6 +1,7 @@
 'use client';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import toast from 'react-hot-toast';
 import type { Product } from '@/types';
 
 export interface CartItem {
@@ -28,6 +29,7 @@ export const useCartStore = create<CartState>()(
                 set((state) => {
                     const existing = state.items.find(i => i.product.id === product.id);
                     if (existing) {
+                        toast.success(`Quantité mise à jour : ${product.title}`);
                         return {
                             items: state.items.map(i =>
                                 i.product.id === product.id
@@ -36,6 +38,7 @@ export const useCartStore = create<CartState>()(
                             ),
                         };
                     }
+                    toast.success(`Ajouté au panier : ${product.title}`);
                     return { items: [...state.items, { product, quantity, priceType }] };
                 });
             },

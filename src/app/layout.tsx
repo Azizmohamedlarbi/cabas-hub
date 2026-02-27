@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
 import AuthProvider from '@/components/providers/AuthProvider';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr">
       <body className={inter.className} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', overflowX: 'hidden' }}>
         <AuthProvider>
+          <Toaster position="bottom-center" toastOptions={{ duration: 3000, style: { background: '#22c55e', color: '#fff', fontWeight: 600 } }} />
           <Navbar />
           <main style={{ flex: 1 }}>
             {children}

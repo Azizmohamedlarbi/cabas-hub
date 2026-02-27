@@ -107,7 +107,7 @@ export default function CheckoutPage() {
                     ))}
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '24px', alignItems: 'flex-start' }}>
+                <div className="flex flex-col lg:grid lg:grid-cols-[1fr_340px] gap-6 items-start">
                     {/* Main panel */}
                     <div style={{ background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--radius-xl)', padding: '28px' }}>
                         {/* Step 0: Cart review */}
