@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect, useMemo } from 'react';
 import TripCard from '@/components/TripCard';
 import { IMPORT_COUNTRIES } from '@/lib/mock-data';
