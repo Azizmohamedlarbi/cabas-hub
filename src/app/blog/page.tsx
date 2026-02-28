@@ -67,7 +67,6 @@ export default function BlogIndexPage() {
                                     href={`/blog/${post.slug}`}
                                     key={post.id}
                                     style={{
-                                        display: 'block',
                                         textDecoration: 'none',
                                         background: 'white',
                                         borderRadius: 'var(--radius-lg)',

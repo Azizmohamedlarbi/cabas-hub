@@ -7,7 +7,6 @@ import { Loader2, ArrowLeft, Calendar, User, Lock, Star } from 'lucide-react';
 import Link from 'next/link';
 import { useAuthStore } from '@/store/auth';
 import { formatDate } from '@/lib/utils';
-import DOMPurify from 'dompurify'; // Note: Ensure dompurify is installed, or we can use dangerouselySetInnerHTML without if trusted
 
 export default function BlogPostPage() {
     const params = useParams();
