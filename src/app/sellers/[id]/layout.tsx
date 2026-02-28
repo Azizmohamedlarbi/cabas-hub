@@ -2,7 +2,7 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import { db } from '@/lib/db';
 
 type Props = {
-    params: { id: string };
+    params: Promise<{ id: string }>;
     children: React.ReactNode;
 };
 
@@ -10,10 +10,11 @@ export async function generateMetadata(
     { params }: Props,
     parent: ResolvingMetadata
 ): Promise<Metadata> {
-    const id = params.id;
+    const { id } = await params;
 
     try {
-        const seller = await db.getSellerById(id);
+        const sellers = await db.getSellers();
+        const seller = sellers.find(s => s.id === id);
 
         if (!seller) {
             return {

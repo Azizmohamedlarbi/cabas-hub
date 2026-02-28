@@ -2,7 +2,7 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import { db } from '@/lib/db';
 
 type Props = {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
     children: React.ReactNode;
 };
 
@@ -10,7 +10,7 @@ export async function generateMetadata(
     { params }: Props,
     parent: ResolvingMetadata
 ): Promise<Metadata> {
-    const slug = params.slug;
+    const { slug } = await params;
 
     try {
         const product = await db.getProductBySlug(slug);
@@ -21,7 +21,7 @@ export async function generateMetadata(
             };
         }
 
-        const title = `${product.name} en Algérie | CABAS HUB`;
+        const title = `${product.title} en Algérie | CABAS HUB`;
         const description = product.description.substring(0, 160) + '...';
         const images = product.images?.[0] ? [product.images[0]] : [];
 

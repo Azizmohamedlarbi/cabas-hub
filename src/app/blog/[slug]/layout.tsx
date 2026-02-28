@@ -2,7 +2,7 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import { blogApi } from '@/lib/blog';
 
 type Props = {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
     children: React.ReactNode;
 };
 
@@ -10,7 +10,7 @@ export async function generateMetadata(
     { params }: Props,
     parent: ResolvingMetadata
 ): Promise<Metadata> {
-    const slug = params.slug;
+    const { slug } = await params;
 
     try {
         const post = await blogApi.getPostBySlug(slug);
