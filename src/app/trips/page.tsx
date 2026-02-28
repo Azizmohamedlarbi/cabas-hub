@@ -1,10 +1,10 @@
-'use client';
 import { useState, useEffect, useMemo } from 'react';
 import TripCard from '@/components/TripCard';
 import { IMPORT_COUNTRIES } from '@/lib/mock-data';
 import { MapPin, Loader2 } from 'lucide-react';
 import { db } from '@/lib/db';
 import { Trip } from '@/types';
+import InlineFeedback from '@/components/feedback/InlineFeedback';
 
 export default function TripsPage() {
     const [country, setCountry] = useState('');
@@ -15,7 +15,7 @@ export default function TripsPage() {
         const fetchTrips = async () => {
             try {
                 const data = await db.getTrips();
-                setTrips(data);
+                setTrips(data.filter(t => t.profiles?.anae_verified === true));
             } catch (error) {
                 console.error('Failed to fetch trips:', error);
             } finally {
@@ -79,6 +79,10 @@ export default function TripsPage() {
                         {filtered.map(trip => <TripCard key={trip.id} trip={trip} />)}
                     </div>
                 )}
+
+                <div style={{ marginTop: '64px', display: 'flex', justifyContent: 'center' }}>
+                    <InlineFeedback feature="trips" title="Que pensez-vous du système de Voyages ?" type="stars" />
+                </div>
             </div>
         </div>
     );

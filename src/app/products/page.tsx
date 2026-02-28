@@ -38,7 +38,7 @@ function ProductsPageInner() {
                     db.getProducts()           // public page: active products only
                 ]);
                 setCategories(cats);
-                setProducts(prods);
+                setProducts(prods.filter(p => p.profiles?.anae_verified === true));
 
                 // Pre-select category from URL param
                 if (urlCategory && cats.length > 0) {

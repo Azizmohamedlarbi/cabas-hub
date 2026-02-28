@@ -5,6 +5,7 @@ import { Search, ShieldCheck, Star, MapPin, Filter, Loader2 } from 'lucide-react
 import { IMPORT_COUNTRIES } from '@/lib/mock-data';
 import { db } from '@/lib/db';
 import { Profile, Category } from '@/types';
+import InlineFeedback from '@/components/feedback/InlineFeedback';
 
 export default function SellersPage() {
     const [search, setSearch] = useState('');
@@ -163,6 +164,10 @@ export default function SellersPage() {
                         </button>
                     </div>
                 )}
+
+                <div style={{ marginTop: '64px', display: 'flex', justifyContent: 'center' }}>
+                    <InlineFeedback feature="sellers" title="Que pensez-vous de l'annuaire des Vendeurs ?" type="emotes" />
+                </div>
             </div>
         </div>
     );

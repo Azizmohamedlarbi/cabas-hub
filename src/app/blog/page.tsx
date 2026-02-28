@@ -6,6 +6,7 @@ import { blogApi } from '@/lib/blog';
 import { BlogPost } from '@/types';
 import { formatDate } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth';
+import InlineFeedback from '@/components/feedback/InlineFeedback';
 
 export default function BlogIndexPage() {
     const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -146,6 +147,10 @@ export default function BlogIndexPage() {
                         })}
                     </div>
                 )}
+
+                <div style={{ marginTop: '64px', display: 'flex', justifyContent: 'center' }}>
+                    <InlineFeedback feature="blog" title="Appréciez-vous les articles de notre Blog ?" type="stars" />
+                </div>
             </div>
         </div>
     );

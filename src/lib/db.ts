@@ -111,7 +111,8 @@ export const db = {
             .from('profiles')
             .select('*')
             .eq('user_type', 'seller')
-            .eq('status', 'active');
+            .eq('status', 'active')
+            .eq('anae_verified', true);
 
         if (limit) {
             query = query.limit(limit);
@@ -345,6 +346,8 @@ export const db = {
                 .from('profiles')
                 .select('firstName:first_name, lastName:last_name, businessName:business_name, id')
                 .eq('user_type', 'seller')
+                .eq('status', 'active')
+                .eq('anae_verified', true)
                 .or(`first_name.ilike.%${query}%,last_name.ilike.%${query}%,business_name.ilike.%${query}%`)
                 .limit(3);
 

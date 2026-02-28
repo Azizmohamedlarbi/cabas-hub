@@ -43,9 +43,9 @@ export default function HomePage() {
           db.getCategories(),
           db.getEarlyAdopterStats()
         ]);
-        setProducts(prodData);
+        setProducts(prodData.filter(p => p.profiles?.anae_verified === true));
         setSellers(selData);
-        setTrips(tripData);
+        setTrips(tripData.filter(t => t.profiles?.anae_verified === true));
         setCategories(catData);
         setEarlyAdopterStats(eaStats);
       } catch (error: any) {

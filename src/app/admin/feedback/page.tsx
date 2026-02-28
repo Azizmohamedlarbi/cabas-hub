@@ -108,6 +108,9 @@ export default function AdminFeedbackPage() {
                         <option value="catalog">Catalogue / Recherche (Products)</option>
                         <option value="checkout">Processus d'Achat (Checkout)</option>
                         <option value="messaging">Messagerie / Chat</option>
+                        <option value="trips">Derniers Voyages (Trips)</option>
+                        <option value="sellers">Annuaire des Vendeurs (Sellers)</option>
+                        <option value="blog">Articles du Blog (Blog)</option>
                     </select>
                 </div>
 
