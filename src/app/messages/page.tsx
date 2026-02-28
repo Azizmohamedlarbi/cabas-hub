@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase';
 import { getConversations, sendMessage, getConversation, markAsRead } from '@/lib/messages';
 import { formatRelativeDate } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
+import InlineFeedback from '@/components/feedback/InlineFeedback';
 
 function MessagesContent() {
     const { user } = useAuthStore();
@@ -300,7 +301,11 @@ function MessagesContent() {
                 ) : (
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#cbd5e1' }}>
                         <Send size={64} style={{ opacity: 0.2, marginBottom: '20px' }} />
-                        <p style={{ fontWeight: 600 }}>Sélectionnez un contact pour discuter</p>
+                        <p style={{ fontWeight: 600, marginBottom: '40px' }}>Sélectionnez un contact pour discuter</p>
+
+                        <div style={{ opacity: 0.8, pointerEvents: 'auto' }}>
+                            <InlineFeedback feature="messaging" title="Que pensez-vous de la messagerie ?" type="emotes" />
+                        </div>
                     </div>
                 )}
             </div>

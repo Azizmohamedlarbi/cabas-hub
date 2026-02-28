@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
+import InlineFeedback from '@/components/feedback/InlineFeedback';
 
 export default function CheckoutSuccessPage() {
     const [orderNum] = useState(() => 'CH-' + Math.random().toString(36).toUpperCase().slice(2, 10));
@@ -23,6 +24,10 @@ export default function CheckoutSuccessPage() {
                     <Link href="/products" style={{ padding: '12px', border: '1.5px solid var(--border)', color: 'var(--text-primary)', borderRadius: 'var(--radius-md)', textDecoration: 'none', fontWeight: 600, fontSize: '14px' }}>
                         Continuer mes achats
                     </Link>
+                </div>
+
+                <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'center' }}>
+                    <InlineFeedback feature="checkout" title="Comment s'est passé votre paiement ?" type="emotes" />
                 </div>
             </div>
         </div>

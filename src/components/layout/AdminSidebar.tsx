@@ -14,6 +14,7 @@ const NAV = [
     { href: '/admin/subscriptions', icon: <Star size={17} />, label: 'Abonnements' },
     { href: '/admin/reports', icon: <Shield size={17} />, label: 'Signalements' },
     { href: '/admin/blog', icon: <BarChart3 size={17} />, label: 'Blog' },
+    { href: '/admin/feedback', icon: <Star size={17} />, label: 'Feedback PMF' },
 ];
 
 export default function AdminSidebar() {

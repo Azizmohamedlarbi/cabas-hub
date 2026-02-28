@@ -3,6 +3,7 @@ import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { SlidersHorizontal, Grid, List, Search, ChevronDown, Loader2, AlertTriangle } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
+import InlineFeedback from '@/components/feedback/InlineFeedback';
 import { IMPORT_COUNTRIES } from '@/lib/mock-data';
 import { db } from '@/lib/db';
 import { Category, Product } from '@/types';
@@ -152,9 +153,13 @@ function ProductsPageInner() {
                             </label>
                         </FilterSection>
 
-                        <button onClick={() => { setCategory(null); setPriceMin(0); setPriceMax(999999); setCountry(''); setWholesaleOnly(false); setSearch(''); }} style={{ width: '100%', padding: '9px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-md)', background: 'white', cursor: 'pointer', fontSize: '13px', fontWeight: 500, color: 'var(--text-secondary)', marginTop: '8px' }}>
+                        <button onClick={() => { setCategory(null); setPriceMin(0); setPriceMax(999999); setCountry(''); setWholesaleOnly(false); setSearch(''); }} style={{ width: '100%', padding: '9px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-md)', background: 'white', cursor: 'pointer', fontSize: '13px', fontWeight: 500, color: 'var(--text-secondary)', marginTop: '8px', marginBottom: '32px' }}>
                             🔄 Réinitialiser filtres
                         </button>
+
+                        <div style={{ padding: '16px', background: 'var(--bg-secondary)', borderRadius: 'var(--radius-lg)', marginTop: 'auto' }}>
+                            <InlineFeedback feature="catalog" title="Trouvez-vous facilement ce que vous cherchez ?" type="stars" />
+                        </div>
                     </aside>
                 )}
 
