@@ -10,9 +10,32 @@ import { Toaster } from 'react-hot-toast';
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://cabashub.com'),
   title: 'CABAS HUB – Marketplace B2B/B2C pour Micro-Importateurs Algériens',
   description: 'La marketplace qui connecte micro-importateurs algériens avec acheteurs B2B et B2C. Produits vérifiés, paiement sécurisé, messagerie intégrée.',
-  keywords: 'marketplace algérie, micro-importateur, ANAE, achat en gros, produits importés, B2B B2C',
+  keywords: 'marketplace algérie, micro-importateur, ANAE, achat en gros, produits importés, ecommerce algeria, cabas hub, b2b algerie',
+  openGraph: {
+    title: 'CABAS HUB – Marketplace B2B/B2C pour Micro-Importateurs',
+    description: 'Achetez et vendez en gros et au détail avec des vendeurs vérifiés de l\'ANAE en Algérie.',
+    url: 'https://cabashub.com',
+    siteName: 'CabasHub',
+    images: [
+      {
+        url: '/Cabas_Hub_logo.png', // Replace with a high-res OG image later
+        width: 1200,
+        height: 630,
+        alt: 'CabasHub Logo',
+      }
+    ],
+    locale: 'fr_DZ',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CABAS HUB – Marketplace B2B/B2C',
+    description: 'La référence des micro-importateurs algériens.',
+    images: ['/Cabas_Hub_logo.png'],
+  },
   icons: {
     icon: '/Cabas_Hub_logo.png',
     shortcut: '/Cabas_Hub_logo.png',
