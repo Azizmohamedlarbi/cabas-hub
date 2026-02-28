@@ -135,3 +135,18 @@ export interface Review {
     created_at: string;
     profiles?: Profile; // Author
 }
+
+export interface BlogPost {
+    id: string;
+    title: string;
+    slug: string;
+    extract?: string;
+    content: string;
+    cover_image?: string;
+    access_level: 'public' | 'registered' | 'premium';
+    is_published: boolean;
+    author_id?: string;
+    created_at: string;
+    updated_at: string;
+    author?: Profile;
+}

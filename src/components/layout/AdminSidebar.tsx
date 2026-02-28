@@ -13,6 +13,7 @@ const NAV = [
     { href: '/admin/photos', icon: <ImageIcon size={17} />, label: 'Photos' },
     { href: '/admin/subscriptions', icon: <Star size={17} />, label: 'Abonnements' },
     { href: '/admin/reports', icon: <Shield size={17} />, label: 'Signalements' },
+    { href: '/admin/blog', icon: <BarChart3 size={17} />, label: 'Blog' },
 ];
 
 export default function AdminSidebar() {

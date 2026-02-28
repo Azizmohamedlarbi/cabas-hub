@@ -113,6 +113,10 @@ export default function Navbar() {
                     <MapPin size={15} /> Voyages
                 </Link>
 
+                <Link href="/blog" className="hidden md:flex" style={{ alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 500, color: 'var(--text-secondary)', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+                    📖 Blog
+                </Link>
+
                 <Link href="/pricing" className="hidden lg:flex" style={{ alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 600, color: '#d97706', textDecoration: 'none', whiteSpace: 'nowrap' }}>
                     <span style={{ fontSize: '16px' }}>⭐</span> Abonnements
                 </Link>
@@ -254,6 +258,9 @@ export default function Navbar() {
 
                     <Link href="/trips" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '15px', fontWeight: 500, color: 'var(--text-primary)', textDecoration: 'none', padding: '8px 0', borderBottom: '1px solid var(--border)' }} onClick={() => setMenuOpen(false)}>
                         <MapPin size={18} /> Voyages
+                    </Link>
+                    <Link href="/blog" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '15px', fontWeight: 500, color: 'var(--text-primary)', textDecoration: 'none', padding: '8px 0', borderBottom: '1px solid var(--border)' }} onClick={() => setMenuOpen(false)}>
+                        📖 Blog
                     </Link>
                     <Link href="/pricing" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '15px', fontWeight: 600, color: '#d97706', textDecoration: 'none', padding: '8px 0' }} onClick={() => setMenuOpen(false)}>
                         <span style={{ fontSize: '18px' }}>⭐</span> Abonnements Max
